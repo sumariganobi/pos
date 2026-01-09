@@ -1,5 +1,6 @@
 'use client'
 
+import PageHeader from '@/components/PageHeader'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
@@ -84,15 +85,15 @@ export default function DashboardPage() {
 
   return (
     <div className="p-4 lg:p-6 max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-xl lg:text-2xl font-bold text-gray-900 mb-1">
-          Dashboard
-        </h1>
-        <p className="text-sm text-gray-600">
-          Selamat datang kembali, <span className="font-semibold text-blue-600">{session?.user?.name}</span> 👋
-        </p>
-      </div>
+      {/* Header with Mobile Menu Button */}
+      <PageHeader 
+        title="Dashboard" 
+        subtitle={
+          <>
+            Selamat datang kembali, <span className="font-semibold text-blue-600">{session?.user?.name}</span> 👋
+          </>
+        }
+      />
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mb-6">

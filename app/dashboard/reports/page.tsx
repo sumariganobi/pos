@@ -1,5 +1,6 @@
 'use client'
 
+import PageHeader from '@/components/PageHeader'
 import { useEffect, useState } from 'react'
 
 interface ReportData {
@@ -36,15 +37,17 @@ export default function ReportsPage() {
 
   return (
     <div className="p-4 lg:p-6 max-w-7xl mx-auto">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
-        <div>
-          <h1 className="text-xl font-bold text-gray-900">Laporan Penjualan</h1>
-          <p className="text-xs text-gray-600 mt-0.5">Analisis performa penjualan</p>
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-3 mb-6">
+        <div className="flex-1">
+          <PageHeader 
+            title="Laporan Penjualan" 
+            subtitle="Analisis performa penjualan"
+          />
         </div>
         <select
           value={period}
           onChange={(e) => setPeriod(e.target.value)}
-          className="input-field w-full sm:w-auto"
+          className="input-field w-full sm:w-auto flex-shrink-0"
         >
           <option value="today">Hari Ini</option>
           <option value="week">Minggu Ini</option>

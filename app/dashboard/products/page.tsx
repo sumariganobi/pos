@@ -1,5 +1,6 @@
 'use client'
 
+import PageHeader from '@/components/PageHeader'
 import { useEffect, useState } from 'react'
 
 interface Product {
@@ -50,14 +51,16 @@ export default function ProductsPage() {
 
   return (
     <div className="p-4 lg:p-6 max-w-7xl mx-auto">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
-        <div>
-          <h1 className="text-xl font-bold text-gray-900">Manajemen Produk</h1>
-          <p className="text-xs text-gray-600 mt-0.5">{products.length} produk tersedia</p>
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-3 mb-6">
+        <div className="flex-1">
+          <PageHeader 
+            title="Manajemen Produk" 
+            subtitle={`${products.length} produk tersedia`}
+          />
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="btn-primary flex items-center gap-2"
+          className="btn-primary flex items-center gap-2 flex-shrink-0"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={showForm ? "M6 18L18 6M6 6l12 12" : "M12 6v6m0 0v6m0-6h6m-6 0H6"} />

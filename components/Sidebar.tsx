@@ -62,32 +62,26 @@ const menuItems = [
   },
 ]
 
-export default function Sidebar() {
+interface SidebarProps {
+  isMobileMenuOpen?: boolean
+  setIsMobileMenuOpen?: (open: boolean) => void
+}
+
+export default function Sidebar({ isMobileMenuOpen = false, setIsMobileMenuOpen }: SidebarProps = {}) {
   const pathname = usePathname()
   const { data: session } = useSession()
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [internalMobileMenuOpen, setInternalMobileMenuOpen] = useState(false)
+  
+  const isMenuOpen = setIsMobileMenuOpen ? isMobileMenuOpen : internalMobileMenuOpen
+  const toggleMenu = setIsMobileMenuOpen || setInternalMobileMenuOpen
 
   return (
     <>
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white rounded-lg shadow-lg"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          {isMobileMenuOpen ? (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          ) : (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          )}
-        </svg>
-      </button>
-
       {/* Overlay */}
-      {isMobileMenuOpen && (
+      {isMenuOpen && (
         <div
           className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={() => setIsMobileMenuOpen(false)}
+          onClick={() => toggleMenu(false)}
         />
       )}
 
@@ -96,7 +90,7 @@ export default function Sidebar() {
         fixed lg:static inset-y-0 left-0 z-40
         w-64 bg-white shadow-xl flex flex-col
         transform transition-transform duration-300 ease-in-out
-        ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+        ${isMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
         {/* Header */}
         <div className="p-4 border-b border-gray-100">
@@ -135,7 +129,7 @@ export default function Sidebar() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={() => toggleMenu(false)}
                     className={`
                       flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all
                       ${isActive

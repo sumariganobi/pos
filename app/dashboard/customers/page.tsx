@@ -1,5 +1,6 @@
 'use client'
 
+import PageHeader from '@/components/PageHeader'
 import { useEffect, useState } from 'react'
 
 interface Customer {
@@ -28,12 +29,14 @@ export default function CustomersPage() {
 
   return (
     <div className="p-4 lg:p-6 max-w-7xl mx-auto">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
-        <div>
-          <h1 className="text-xl font-bold text-gray-900">Data Pelanggan</h1>
-          <p className="text-xs text-gray-600 mt-0.5">{customers.length} pelanggan terdaftar</p>
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-3 mb-6">
+        <div className="flex-1">
+          <PageHeader 
+            title="Data Pelanggan" 
+            subtitle={`${customers.length} pelanggan terdaftar`}
+          />
         </div>
-        <button className="btn-primary flex items-center gap-2">
+        <button className="btn-primary flex items-center gap-2 flex-shrink-0">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
           </svg>

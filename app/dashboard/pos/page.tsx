@@ -1,5 +1,6 @@
 'use client'
 
+import PageHeader from '@/components/PageHeader'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
@@ -118,9 +119,9 @@ export default function POSPage() {
       {/* Products Section */}
       <div className="flex-1 p-4 lg:p-6 overflow-y-auto">
         {/* Header */}
+        <PageHeader title="Kasir" />
+        
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Kasir</h1>
-          
           {/* Search Bar */}
           <div className="relative">
             <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

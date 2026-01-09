@@ -3,7 +3,18 @@
 import Sidebar from '@/components/Sidebar'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
+
+// Context untuk mobile menu
+const MobileMenuContext = createContext<{
+  isMobileMenuOpen: boolean
+  setIsMobileMenuOpen: (open: boolean) => void
+}>({
+  isMobileMenuOpen: false,
+  setIsMobileMenuOpen: () => {}
+})
+
+export const useMobileMenu = () => useContext(MobileMenuContext)
 
 export default function DashboardLayout({
   children,
@@ -12,6 +23,7 @@ export default function DashboardLayout({
 }) {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -35,11 +47,13 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
-      <Sidebar />
-      <main className="flex-1 overflow-y-auto">
-        {children}
-      </main>
-    </div>
+    <MobileMenuContext.Provider value={{ isMobileMenuOpen, setIsMobileMenuOpen }}>
+      <div className="flex h-screen bg-gray-50 overflow-hidden">
+        <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+        <main className="flex-1 overflow-y-auto">
+          {children}
+        </main>
+      </div>
+    </MobileMenuContext.Provider>
   )
 }
